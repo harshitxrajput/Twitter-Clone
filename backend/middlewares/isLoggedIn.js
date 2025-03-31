@@ -12,11 +12,12 @@ export const isLoggedIn = async (req, res, next) => {
         if(!decoded){
             return res.status(401).json({ message: "Unauthorized user: Invalid Token" });
         }
-        console.log(decoded);
+        
         const user = await userModel.findById(decoded.userId).select('-password');
         if(!user){
             return res.status(404).json({ message: "User not found" });
         }
+        
         req.user = user;
         next();
     }
