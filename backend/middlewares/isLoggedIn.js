@@ -5,7 +5,7 @@ export const isLoggedIn = async (req, res, next) => {
     try{
         const token = req.cookies.jwt;
         if(!token){
-            return res.status(404).json({ message: "Unauthorized user" });
+            return res.status(401).json({ message: "Unauthorized user" });
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET);

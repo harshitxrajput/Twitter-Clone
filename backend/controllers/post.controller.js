@@ -21,7 +21,7 @@ export const createPostController = async (req, res) => {
 
         const user = await userModel.findById(userId);
         if(!user){
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         const newPost = await postModel.create({
@@ -35,7 +35,7 @@ export const createPostController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -43,11 +43,11 @@ export const deletePostController = async (req, res) => {
     try{
         const post = await postModel.findById(req.params.id);
         if(!post){
-            return res.status(404).json({ message: "No post found" });
+            return res.status(404).json({ error: "No post found" });
         }
 
         if(post.user.toString() !== req.user._id.toString()){
-            return res.status(401).json({ message: "You are not authorized to delete this post" });
+            return res.status(401).json({ error: "You are not authorized to delete this post" });
         }
 
         if(post.img){
@@ -60,7 +60,7 @@ export const deletePostController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -71,12 +71,12 @@ export const commentOnPostController = async (req, res) => {
         const userId = req.user._id;
 
         if(!text){
-            return res.status(400).json({ message: "Some text required to comment" });
+            return res.status(400).json({ error: "Some text required to comment" });
         }
 
         const post = await postModel.findById(postId);
         if(!post){
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ error: "Post not found" });
         }
 
         const comment = { user: userId, text: text };
@@ -88,7 +88,7 @@ export const commentOnPostController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -99,7 +99,7 @@ export const likeUnlikePostController = async (req, res) => {
 
         const post = await postModel.findById(postId);
         if(!post){
-            return res.status(404).json({ message: "Post not found" });
+            return res.status(404).json({ error: "Post not found" });
         }
 
         const userLikedPost = post.likes.includes(userId);
@@ -125,7 +125,7 @@ export const likeUnlikePostController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -147,7 +147,7 @@ export const getAllPostsController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -156,7 +156,7 @@ export const getLikedPostsController = async (req, res) => {
     try{
         const user = await userModel.findById(userId);
         if(!user){
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         const likedPosts = await postModel.find({ _id: { $in: user.likedPosts } })
@@ -172,7 +172,7 @@ export const getLikedPostsController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -182,7 +182,7 @@ export const getFollowingPostsController = async (req, res) => {
 
         const user = await userModel.findById(userId);
         if(!user){
-            return res.status(404).json({ message: "Internal Server Error" });
+            return res.status(404).json({ error: "Internal Server Error" });
         }
 
         const following = user.following;
@@ -200,7 +200,7 @@ export const getFollowingPostsController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -210,7 +210,7 @@ export const getUserPostsController = async (req, res) => {
 
         const user = await userModel.findOne({ username: username });
         if(!user){
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         const userPosts = await postModel.find({ user: user._id }).sort({ createdAt: -1 })
@@ -226,6 +226,6 @@ export const getUserPostsController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }

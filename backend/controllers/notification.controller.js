@@ -20,7 +20,7 @@ export const getAllNotificationController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -39,6 +39,6 @@ export const deleteAllNotificationController = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }

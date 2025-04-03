@@ -10,14 +10,14 @@ export const getUserProfile = async (req, res) => {
     try{
         const user = await userModel.findOne({ username }).select('-password');
         if(!user){
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         res.status(200).json(user);
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message : "Internal Server Error" });
+        res.status(500).json({ error : "Internal Server Error" });
     }
 }
 
@@ -56,11 +56,11 @@ export const followUnfollowUser = async (req, res) => {
         const currentUser = await userModel.findById(req.user._id);
         
         if(id === req.user._id.toString()){
-            return res.status(404).json({ message: "You can't follow or unfollow yourself" });
+            return res.status(404).json({ error: "You can't follow or unfollow yourself" });
         }
 
         if(!userToFollow || !currentUser){
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         const isFollowing = userToFollow.followers.includes(currentUser._id);
@@ -86,7 +86,7 @@ export const followUnfollowUser = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -152,6 +152,6 @@ export const updateUserProfile = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }

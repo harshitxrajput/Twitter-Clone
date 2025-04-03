@@ -90,7 +90,7 @@ export const loginController = async (req, res)=>{
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -98,14 +98,14 @@ export const logoutController = async (req, res)=>{
     try{
         const user = await userModel.findById(req.user._id);
         if(!user){
-            return res.status(404).json({ message: "No user logged in" });
+            return res.status(404).json({ error: "No user logged in" });
         }
         res.cookie('jwt', '', {maxAge: 0});
-        res.status(200).json({ message: "Logged Out successfully" });
+        res.status(200).json({ error: "Logged Out successfully" });
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }     
 }
 
