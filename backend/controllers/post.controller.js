@@ -131,7 +131,7 @@ export const likeUnlikePostController = async (req, res) => {
 
 export const getAllPostsController = async (req, res) => {
     try{
-        const allPosts = await postModel.find({ user: req.user._id }).sort({ createdAt: -1 }).populate({
+        const allPosts = await postModel.find().sort({ createdAt: -1 }).populate({
             path: "user",
             select: "-password"
         }).populate({

@@ -37,6 +37,7 @@ const Posts = ({ feedType }) => {
 					throw new Error(data.error || "Something went wrong");
 				}
 				
+				console.log(data);
 				return data;
 			}
 			catch(err){
