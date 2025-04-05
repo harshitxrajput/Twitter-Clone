@@ -144,9 +144,9 @@ const Post = ({ post }) => {
 		<>
 			<div className='flex gap-2 items-start p-4 border-b border-gray-700'>
 
-				<div className='avatar'>
-					<Link to={`/profile/${postOwner.username}`} className='w-8 rounded-full object-top overflow-hidden'>
-						<img src={postOwner.profileImg || "/avatar-placeholder.png"} />
+				<div className='avatar w-12'>
+					<Link to={`/profile/${postOwner.username}`} className='w-10 h-10 rounded-full object-top mt-2 overflow-hidden'>
+						<img src={postOwner.profileImg || "/avatar-placeholder.png"} className="h-8"/>
 					</Link>
 				</div>
 
