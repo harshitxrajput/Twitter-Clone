@@ -11,7 +11,7 @@ export const getAllNotificationController = async (req, res) => {
         });
         
         if(notifications.length === 0){
-            return res.status(200).json({ message: "You have no notifications" });
+            return res.status(200).json(notifications);
         }
 
         console.log("notifications retrieved");
@@ -35,6 +35,7 @@ export const deleteAllNotificationController = async (req, res) => {
         }
 
         await notificationModel.deleteMany({ to: userId });
+        console.log("Notifications deleted successfully");
         res.status(200).json({ message: "All notification deleted successfully" });
     }
     catch(err){
