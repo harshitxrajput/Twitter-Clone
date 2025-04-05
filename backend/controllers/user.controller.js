@@ -44,7 +44,7 @@ export const getSuggesstedUser = async (req, res) => {
     }
     catch(err){
         console.log(err.message);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ error: "Internal Server Error" });
     }
 }
 
@@ -98,21 +98,21 @@ export const updateUserProfile = async (req, res) => {
     try{
         let user = await userModel.findById(userId);
         if(!user){
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         if((!newPassword && currentPassword) || (!currentPassword && newPassword)){
-            return res.status(400).json({ message: "Plase provide both current password and new password" });
+            return res.status(400).json({ error: "Plase provide both current password and new password" });
         }
 
         if(currentPassword && newPassword){
             const isMatch = await bcrypt.compare(currentPassword, user.password);
             if(!isMatch){
-                return res.status(400).json({ message: "Invalid current password" });
+                return res.status(400).json({ error: "Invalid current password" });
             }
 
             if(newPassword.length<6){
-                return res.status(400).json({ message: "Password must be at least 6 characters long" })
+                return res.status(400).json({ error: "Password must be at least 6 characters long" })
             }
 
             const salt = await bcrypt.genSalt(10);

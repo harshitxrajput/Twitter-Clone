@@ -11,7 +11,7 @@ export const createPostController = async (req, res) => {
         const userId = req.user._id.toString();
 
         if(!text && !img){
-            return res.status(400).json({ message: "Post must have some text or image" })
+            return res.status(400).json({ error: "Post must have some text or image" })
         }
 
         if(img){
