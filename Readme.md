@@ -1,6 +1,6 @@
 # Twitter Clone Documentation
 
-Access the deployed website here: [https://harshitrajput-twitterclone.onrender.com](https://harshitrajput-twitterclone.onrender.com)
+Live Demo: [https://harshitrajput-twitterclone.onrender.com](https://harshitrajput-twitterclone.onrender.com)
 
 ---
 
